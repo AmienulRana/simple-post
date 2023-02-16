@@ -47,6 +47,8 @@ const Home = ({ posts }: TypePosts) => {
   };
   const handleDeletePost = async (id: number) => {
     setDataPosts(dataPost.filter((post) => post.id !== id));
+
+    setPostSearch(postsSearch.filter((post: Post) => post.id !== id));
     await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
       method: "DELETE",
     });
@@ -90,14 +92,14 @@ const Home = ({ posts }: TypePosts) => {
   };
   return (
     <Layout>
-      <section className="flex justify-between w-full my-12 lg:my-24">
+      <section className="flex flex-wrap justify-between w-full my-12 lg:my-24">
         <button
-          className="text-white bg-orange-500 rounded-md flex justify-center items-center min-w-max px-4 hover:opacity-80"
+          className="text-white bg-orange-500 rounded-md flex justify-center items-center sm:min-w-max h-10 px-4 hover:opacity-80"
           onClick={() => setIsModalOpen("Add")}
         >
           Add Article
         </button>
-        <div className="relative lg:w-4/12">
+        <div className="relative sm:w-4/12 mt-4 sm:mt-0 w-full">
           <input
             type="text"
             onChange={handleSearch}
@@ -108,7 +110,7 @@ const Home = ({ posts }: TypePosts) => {
         </div>
       </section>
       <section>
-        <div className="grid grid-cols-3 gap-4 flex-wrap justify-center">
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 flex-wrap justify-center">
           {currentItems?.map((post: Post) => (
             <div
               className="bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-2 relative h-64 "
