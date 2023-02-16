@@ -31,7 +31,7 @@ export default function Pagination(props: PaginationType) {
       pageCount={pageCount}
       previousLabel="prev"
       renderOnZeroPageCount={() => {}}
-      containerClassName="flex w-full justify-center text-gray-500 items-center my-16"
+      containerClassName="flex w-full justify-center text-gray-500 items-center my-16 flex-wrap"
       activeClassName="border-2 border-orange-500 text-orange-500"
       pageClassName="text-center py-1 px-4 rounded-lg mx-2 font-bold"
     />
