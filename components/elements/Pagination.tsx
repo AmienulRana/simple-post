@@ -13,7 +13,6 @@ export default function Pagination(props: PaginationType) {
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
-    console.log(`Loading items from ${itemOffset} to ${endOffset}`);
     setCurrentItems(data.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(data.length / itemsPerPage));
     // eslint-disable-next-line react-hooks/exhaustive-deps
