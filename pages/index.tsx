@@ -36,14 +36,13 @@ const Home = ({ posts }: TypePosts) => {
       },
     });
     const data = await response.json();
-    console.log(data);
-    setDataPosts([...dataPost, data]);
+    setDataPosts([...dataPost, { ...data, id: post.id }]);
   };
   const handleDeletePost = async (id: number) => {
+    setDataPosts(dataPost.filter((post) => post.id !== id));
     await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
       method: "DELETE",
     });
-    setDataPosts(dataPost.filter((post) => post.id !== id));
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,15 +91,18 @@ const Home = ({ posts }: TypePosts) => {
                 </h3>
                 <p className="text-gray-600 text-sm mt-1">{post.body}</p>
               </div>
-              <div className="px-3 py-2 bg-gray-100 h-8 absolute bottom-0 left-0 w-full flex items-center">
+              <div className="px-3 py-2 bg-gray-100 h-8 absolute bottom-0 left-0 w-full flex justify-between items-center">
                 <Link href={`/posts/${post.id}`}>
                   <p className="text-orange-500 hover:underline font-semibold text-sm">
                     Read more
                   </p>
                 </Link>
                 <section>
-                  <button className="bg-transparent">
-                    <BiTrash />
+                  <button
+                    className="bg-transparent flex items-center"
+                    onClick={() => handleDeletePost(post?.id)}
+                  >
+                    <BiTrash className="text-xl text-red-500" />
                   </button>
                 </section>
               </div>
@@ -144,13 +146,16 @@ export function PostForm({
 }: TypePostForm) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event: React.FormEvent) => {
+    setLoading(true);
     event.preventDefault();
     onSubmit({ userId: 1, title, body, id: Date.now() });
     handleCloseModal();
     setTitle("");
     setBody("");
+    setLoading(false);
   };
   return (
     <Modal open={isModalOpen} onClose={handleCloseModal}>
@@ -181,6 +186,7 @@ export function PostForm({
             <button
               className="px-4 py-2 text-white bg-orange-500 rounded-md hover:opacity-80"
               type="submit"
+              disabled={loading}
             >
               Save
             </button>
