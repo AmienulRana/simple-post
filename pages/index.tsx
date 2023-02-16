@@ -3,9 +3,10 @@ import Layout from "../components/layout/Index";
 import { BiSearch } from "react-icons/bi";
 import Link from "next/link";
 import { getAllPostsData } from "../actions/posts";
+import { CardPost } from "../components/organism/Posts";
 
-interface TypePost {
-  userId: number;
+export interface TypePost {
+  userId?: number;
   id: number;
   title: string;
   body: string;
@@ -19,9 +20,6 @@ const Home = ({ posts }: TypePost) => {
         <button className="text-white bg-orange-500 rounded-md flex justify-center items-center min-w-max px-4 hover:opacity-80">
           Add Article
         </button>
-        {/* <h1 className="text-orange-500 text-4xl lg:text-5xl mr-2 font-medium">
-          Article
-        </h1> */}
         <div className="relative lg:w-4/12">
           <input
             type="text"
@@ -34,24 +32,12 @@ const Home = ({ posts }: TypePost) => {
       <section>
         <div className="grid grid-cols-3 gap-4 flex-wrap justify-center">
           {posts?.map((post: TypePost) => (
-            <div
-              key={post.id}
-              className="bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-2 relative h-64 "
-            >
-              <div className="px-3 py-2 h-52">
-                <h3 className="text-gray-900 font-semibold text-lg">
-                  {post.title}
-                </h3>
-                <p className="text-gray-600 text-sm mt-1">{post.body}</p>
-              </div>
-              <div className="px-3 py-2 bg-gray-100 h-8 absolute bottom-0 left-0 w-full flex items-center">
-                <Link href={`/posts/${post.id}`}>
-                  <p className="text-orange-500 hover:underline font-semibold text-sm">
-                    Read more
-                  </p>
-                </Link>
-              </div>
-            </div>
+            <CardPost
+              key={post?.id}
+              id={post?.id}
+              body={post?.body}
+              title={post?.title}
+            />
           ))}
         </div>
       </section>
