@@ -24,7 +24,7 @@ const PostPageDetail = ({
         <h1 className="text-3xl font-bold mb-4">{post?.title}</h1>
         <p className="mb-4">{post?.body}</p>
         <Link href="/">
-          <p className="text-blue-600 hover:underline">Back to posts</p>
+          <p className="text-orange-500 hover:underline">Back to posts</p>
         </Link>
       </div>
     </Layout>
